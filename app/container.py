@@ -11,7 +11,7 @@ JWT_SECRET_KEY = settings.JWT_SECRET_KEY
 
 class Container(containers.DeclarativeContainer):
 
-    wiring_config = containers.WiringConfiguration(modules=["app.routes.auth_router"])
+    wiring_config = containers.WiringConfiguration(modules=["app.api.v1.auth_router"])
 
     db = providers.Singleton(SessionLocal, db_url=DATABASE_URL)
 
