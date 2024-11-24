@@ -1,0 +1,11 @@
+fastapi[standard]
+bcrypt
+PyJWT
+sqlalchemy
+pydantic
+pydantic[email]
+uvicorn
+dependency-injector
+pydantic_settings
+passlib
+httpx
