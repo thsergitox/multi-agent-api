@@ -15,10 +15,14 @@ class Container(containers.DeclarativeContainer):
 
     db = providers.Singleton(SessionLocal, db_url=DATABASE_URL)
 
+    # Repositories
+
     user_repository = providers.Factory(
         UserRepository,
         db=db.provided.session,
     )
+
+    # Services
 
     jwt_service = providers.Factory(
         TokenServiceJWT,
@@ -30,3 +34,5 @@ class Container(containers.DeclarativeContainer):
         user_repository=user_repository,
         token_service=jwt_service
     )
+    
+    ## TODO: Add the rest of the services and repositories here
