@@ -23,3 +23,6 @@ class LatexDocSchema(BaseModel):
     
 class SearchSchema(BaseModel):
     query:str
+
+
+## TODO: Agregar Schemas para el chatbot AI 
