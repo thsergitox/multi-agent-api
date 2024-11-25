@@ -1,2 +1,2 @@
 run:
-	sudo docker 
+	fastapi dev app/main.py
