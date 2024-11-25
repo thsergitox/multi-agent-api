@@ -22,7 +22,7 @@ async def render_latex(request: LatexDocSchema):
 
     tag = generate_random_string()
     root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    render_dir = f"backend/render_dir"
+    render_dir = f"backend"
     os.system(f"rm -f {render_dir}/*")
 
     os.makedirs(f"{root_dir}/{render_dir}", exist_ok=True)
