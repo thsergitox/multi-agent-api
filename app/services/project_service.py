@@ -13,8 +13,21 @@ class ProjectService:
         return project
 
     def create_project(self, project_data: dict):
-        new_project = Project(**project_data)
-        return self.project_repository.create_project(new_project)
+        try:
+            if 'papers' not in project_data:
+                project_data['papers'] = []
+            
+            # Convert dict to Project instance
+            project = Project(
+                owner_id=project_data['owner_id'],
+                title=project_data['title'],
+                description=project_data.get('description'),
+                is_public=project_data.get('is_public', True),
+                papers=project_data.get('papers', [])
+            )
+            return self.project_repository.create_project(project)
+        except Exception as e:
+            raise ValueError(f"Error creating project: {str(e)}")
 
     def update_project(self, project_id: str, updates: dict):
         project = self.project_repository.update_project(project_id, updates)

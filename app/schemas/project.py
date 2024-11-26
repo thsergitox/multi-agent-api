@@ -1,5 +1,6 @@
-from pydantic import BaseModel
-from typing import Optional
+from pydantic import BaseModel, Field
+from typing import Optional, List, Dict, Any
+from uuid import UUID
 
 class ProjectSchema(BaseModel):
     id: Optional[int]  # ID del proyecto, opcional para respuestas
@@ -12,10 +13,34 @@ class ProjectSchema(BaseModel):
     class Config:
         from_attributes = True
 
+class PaperSchema(BaseModel):
+    title: str
+    authors: List[str]
+    year: int
+
 class ProjectCreateSchema(BaseModel):
+    owner_id: UUID
     title: str
     description: Optional[str] = None
-    is_public: bool = True  # Por defecto, el proyecto no es público
+    is_public: bool = True
+    papers: List[PaperSchema] = Field(default_factory=list)
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "owner_id": "ingresar uno valido",
+                "title": "Proyecto de ejemplo",
+                "description": "Descripción del proyecto",
+                "is_public": True,
+                "papers": [
+                    {
+                        "title": "Paper 1",
+                        "authors": ["Author 1", "Author 2"],
+                        "year": 2023
+                    }
+                ]
+            }
+        }
 
 class ProjectUpdateSchema(BaseModel):
     title: Optional[str] = None

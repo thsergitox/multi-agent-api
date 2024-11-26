@@ -2,6 +2,7 @@ import uuid
 from sqlalchemy import Column, String, Text, Boolean, ForeignKey, DateTime, JSON
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
+from sqlalchemy.ext.mutable import MutableList
 from datetime import datetime
 from app.db.session import Base
 
@@ -19,7 +20,7 @@ class Project(Base):
     is_public = Column(Boolean, default=False, nullable=False)
     main_file = Column(String(255), nullable=True)
     compilation_settings = Column(JSON, nullable=True)
-    papers = Column(JSON, default=list, nullable=True)  # Stores the list of papers as BSON-like JSON
+    papers = Column(MutableList.as_mutable(JSON), default=list, nullable=True)  # Stores the list of papers as BSON-like JSON
     
     owner = relationship("User", back_populates="projects")
     chat_messages = relationship("ChatMessage", back_populates="project")

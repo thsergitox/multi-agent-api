@@ -14,7 +14,7 @@ def list_projects(project_service: ProjectService = Depends(Provide[Container.pr
 @router.post("/")
 @inject
 def create_project(project_data: ProjectCreateSchema, project_service: ProjectService = Depends(Provide[Container.project_service])):
-    return project_service.create_project(project_data.dict())
+    return project_service.create_project(project_data.model_dump())
 
 @router.get("/{project_id}")
 @inject
