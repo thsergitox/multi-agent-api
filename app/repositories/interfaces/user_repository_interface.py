@@ -18,3 +18,11 @@ class UserRepositoryInterface(ABC):
     @abstractmethod
     def create_user(self, user: User) -> User:
         pass
+
+    @abstractmethod
+    def update_user(self, user_id: str, updates: dict) -> User:
+        pass
+
+    @abstractmethod
+    def delete_user(self, user_id: str) -> bool:
+        pass

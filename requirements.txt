@@ -9,3 +9,4 @@ dependency-injector
 pydantic_settings
 passlib
 httpx
+psycopg2-binary
