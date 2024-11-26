@@ -4,7 +4,7 @@ from app.models.user import User
 
 class AuthServiceInterface(ABC):
     @abstractmethod
-    def register_user(self, db: Session, name: str, email: str, password: str, role: str) -> User:
+    def register_user(self, db: Session, name: str, email: str, password: str) -> User:
         pass
 
     @abstractmethod

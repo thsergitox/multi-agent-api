@@ -4,16 +4,15 @@ from typing import Optional
 # Esquema para representar un usuario
 class UserSchema(BaseModel):
     id: int
-    name: str
+    full_name: str
     email: EmailStr
-    role: str
 
     class Config:
         from_attributes = True
 
 # Esquema para crear un usuario
 class UserCreateSchema(BaseModel):
-    name: str
+    full_name: str
     email: EmailStr
     password: str
 
@@ -24,10 +23,9 @@ class UserLoginSchema(BaseModel):
 
 # Esquema para actualizar un usuario
 class UserUpdateSchema(BaseModel):
-    name: Optional[str] = None
+    full_name: Optional[str] = None
     email: Optional[EmailStr] = None
     password: Optional[str] = None
-    role: Optional[str] = None
 
     class Config:
         from_attributes = True

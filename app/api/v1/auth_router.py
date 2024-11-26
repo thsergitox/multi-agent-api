@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from dependency_injector.wiring import inject, Provide
+from sqlalchemy.exc import IntegrityError
 
 from app.container import Container
 from app.schemas.user import UserCreateSchema, UserSchema, UserLoginSchema
@@ -13,7 +14,13 @@ JWT_SECRET_KEY = settings.JWT_SECRET_KEY
 @router.post("/register", response_model=UserSchema)
 @inject
 def register_user(user_data: UserCreateSchema, auth_service: AuthService = Depends(Provide[Container.auth_service])):
-    return auth_service.register_user(user_data)
+    try:
+        response = auth_service.register_user(user_data)
+    except IntegrityError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User already exists")
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e)) 
+    return response
 
 @router.post("/login")
 @inject

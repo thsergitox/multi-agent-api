@@ -15,7 +15,7 @@ class ProjectSchema(BaseModel):
 class ProjectCreateSchema(BaseModel):
     title: str
     description: Optional[str] = None
-    is_public: bool = False  # Por defecto, el proyecto no es público
+    is_public: bool = True  # Por defecto, el proyecto no es público
 
 class ProjectUpdateSchema(BaseModel):
     title: Optional[str] = None

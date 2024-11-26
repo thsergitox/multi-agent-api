@@ -25,10 +25,9 @@ class AuthService(AuthServiceInterface):
     def register_user(self, user_data: UserCreateSchema) -> User:
         hashed_password = self._hash_password(user_data.password)
         new_user = User(
-            name=user_data.name,
+            full_name=user_data.full_name,
             email=user_data.email,
             hashed_password=hashed_password,
-            role="user",
         )
                 
         
@@ -37,5 +36,5 @@ class AuthService(AuthServiceInterface):
     def authenticate_user(self, user: UserLoginSchema) -> str:
         user_response = self.user_repository.get_by_email(user.email)
         if user_response and self._verify_password(user.password, user_response.hashed_password):
-            return self.token_service.create_token({"sub": user_response.id, "role": user_response.role})
+            return self.token_service.create_token({"sub": str(user_response.id)})
         raise ValueError("Invalid credentials")
