@@ -1,9 +1,14 @@
 from pydantic import BaseModel, EmailStr
 from typing import Optional
+from uuid import UUID
 
 # Esquema para representar un usuario
+class TokenSchema(BaseModel):
+    access_token: str
+    
+
 class UserSchema(BaseModel):
-    id: int
+    id: UUID
     full_name: str
     email: EmailStr
 
@@ -52,3 +57,10 @@ class ChatMessageCreateSchema(BaseModel):
     user_id: int
     project_id: int
     content: str
+
+class UserRegisterResponseSchema(BaseModel):
+    full_name: str
+    email: EmailStr
+
+    class Config:
+        from_attributes = True
