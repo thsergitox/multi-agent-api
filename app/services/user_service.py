@@ -37,3 +37,7 @@ class UserService:
         if not success:
             raise UserNotFoundException(user_id)
         return success
+    
+    def get_all_users(self) -> list[UserSchema]:
+        users = self.user_repository.get_all_users()
+        return [UserSchema.from_orm(user) for user in users]

@@ -1,9 +1,10 @@
 from pydantic import BaseModel, EmailStr
 from typing import Optional
+from uuid import UUID
 
 # Esquema para representar un usuario
 class UserSchema(BaseModel):
-    id: int
+    id: UUID
     full_name: str
     email: EmailStr
 

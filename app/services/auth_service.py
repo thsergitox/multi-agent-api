@@ -38,3 +38,6 @@ class AuthService(AuthServiceInterface):
         if user_response and self._verify_password(user.password, user_response.hashed_password):
             return self.token_service.create_token({"sub": str(user_response.id)})
         raise ValueError("Invalid credentials")
+    
+    def get_user(self, user_id: str) -> User:
+        return self.user_repository.get_by_id(user_id)

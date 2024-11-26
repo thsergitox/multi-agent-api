@@ -45,3 +45,7 @@ class UserRepository(UserRepositoryInterface):
             user = session.query(User).filter(User.id == user_id).first()
             if not user:
                 return False  # Manejar de forma adecuada en la capa de servicio
+            
+    def get_all_users(self) -> list[User]:
+        with self.db() as session:
+            return session.query(User).all()
