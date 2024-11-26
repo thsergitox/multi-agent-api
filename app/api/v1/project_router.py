@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException  
 from dependency_injector.wiring import Provide, inject
-from app.schemas.project import ProjectSchema, ProjectCreateSchema, ProjectUpdateSchema
+from app.schemas.project import ProjectSchema, ProjectCreateSchema, ProjectUpdateSchema, UserProjectsRequestSchema
 from app.services.project_service import ProjectService
 from app.container import Container
 
@@ -36,4 +36,12 @@ def update_project(project_id: str, updates: ProjectUpdateSchema, project_servic
 @inject
 def delete_project(project_id: str, project_service: ProjectService = Depends(Provide[Container.project_service])):
     return project_service.delete_project(project_id)
+
+@router.post("/get_by_user", response_model=list[ProjectSchema])
+@inject
+def get_projects_by_user(request: UserProjectsRequestSchema, project_service: ProjectService = Depends(Provide[Container.project_service])):
+    try:
+        return project_service.get_projects_by_user(request.access_token)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
 

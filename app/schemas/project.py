@@ -1,14 +1,15 @@
 from pydantic import BaseModel, Field
-from typing import Optional, List, Dict, Any
+from typing import Optional, List
 from uuid import UUID
+from datetime import datetime
 
 class ProjectSchema(BaseModel):
-    id: Optional[int]  # ID del proyecto, opcional para respuestas
+    id: UUID  # ID del proyecto como UUID
     title: str  # Título del proyecto
     description: Optional[str] = None  # Descripción, puede estar vacío
     is_public: bool  # Si el proyecto es público o privado
-    created_at: Optional[str] = None  # Fecha de creación
-    updated_at: Optional[str] = None  # Fecha de última actualización
+    created_at: datetime  # Fecha de creación
+    updated_at: datetime  # Fecha de última actualización
 
     class Config:
         from_attributes = True
@@ -46,3 +47,6 @@ class ProjectUpdateSchema(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
     is_public: Optional[bool] = None
+
+class UserProjectsRequestSchema(BaseModel):
+    access_token: str

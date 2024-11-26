@@ -63,4 +63,5 @@ class Container(containers.DeclarativeContainer):
     chat_service = providers.Factory(
         ChatService,
         chat_repository=chat_repository,
+        token_service=jwt_service,
     )

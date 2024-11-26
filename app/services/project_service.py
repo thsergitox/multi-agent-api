@@ -1,3 +1,4 @@
+from app.schemas.project import ProjectSchema
 from app.repositories.project_repository import ProjectRepository
 from app.repositories.interfaces.project_repository_interface import ProjectRepositoryInterface
 from app.services.interfaces.token_service_interface import TokenServiceInterface
@@ -53,3 +54,12 @@ class ProjectService:
 
     def get_all_projects(self):
         return self.project_repository.get_all_projects()
+
+    def get_projects_by_user(self, access_token: str) -> list[ProjectSchema]:
+        token_data = self.token_service.verify_token(access_token)
+        if not token_data or 'sub' not in token_data:
+            raise ValueError("Invalid token")
+        
+        user_id = token_data['sub']
+        projects = self.project_repository.get_by_owner(user_id)
+        return [ProjectSchema.from_orm(project) for project in projects]
