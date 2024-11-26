@@ -19,7 +19,7 @@ class PaperSchema(BaseModel):
     year: int
 
 class ProjectCreateSchema(BaseModel):
-    owner_id: UUID
+    access_token: str
     title: str
     description: Optional[str] = None
     is_public: bool = True
@@ -28,7 +28,7 @@ class ProjectCreateSchema(BaseModel):
     class Config:
         json_schema_extra = {
             "example": {
-                "owner_id": "ingresar uno valido",
+                "access_token": "ingresa token valido",
                 "title": "Proyecto de ejemplo",
                 "description": "Descripción del proyecto",
                 "is_public": True,

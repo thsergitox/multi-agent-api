@@ -13,4 +13,7 @@ class TokenServiceJWT(TokenServiceInterface):
         return jwt.encode(data, self.secret_key, algorithm=self.algorithm)
 
     def verify_token(self, token: str) -> dict:
-        return jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
+        try:
+            return jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
+        except jwt.exceptions.InvalidTokenError as e:
+            raise ValueError(f"Invalid token: {str(e)}")

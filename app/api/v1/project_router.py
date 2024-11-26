@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException  
 from dependency_injector.wiring import Provide, inject
 from app.schemas.project import ProjectSchema, ProjectCreateSchema, ProjectUpdateSchema
 from app.services.project_service import ProjectService
@@ -14,7 +14,13 @@ def list_projects(project_service: ProjectService = Depends(Provide[Container.pr
 @router.post("/")
 @inject
 def create_project(project_data: ProjectCreateSchema, project_service: ProjectService = Depends(Provide[Container.project_service])):
-    return project_service.create_project(project_data.model_dump())
+    try:
+        return project_service.create_project(project_data.model_dump())
+    except Exception as e:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Error creating project: {str(e)}"
+        )
 
 @router.get("/{project_id}")
 @inject
