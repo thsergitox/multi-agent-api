@@ -3,7 +3,7 @@ from dependency_injector.wiring import inject, Provide
 from sqlalchemy.exc import IntegrityError
 
 from app.container import Container
-from app.schemas.user import UserCreateSchema, UserSchema, UserLoginSchema
+from app.schemas.user import UserCreateSchema, UserSchema, UserLoginSchema, TokenSchema
 from app.services.auth_service import AuthService
 from app.config import settings
 
@@ -11,16 +11,16 @@ router = APIRouter()
 
 JWT_SECRET_KEY = settings.JWT_SECRET_KEY
 
-@router.post("/register", response_model=UserSchema)
+@router.post("/register")
 @inject
 def register_user(user_data: UserCreateSchema, auth_service: AuthService = Depends(Provide[Container.auth_service])):
     try:
-        response = auth_service.register_user(user_data)
+        token = auth_service.register_user(user_data)
+        return { "access_token": token }
     except IntegrityError:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User already exists")
     except ValueError as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e)) 
-    return response
 
 @router.post("/login")
 @inject

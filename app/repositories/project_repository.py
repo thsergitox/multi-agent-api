@@ -53,3 +53,20 @@ class ProjectRepository(ProjectRepositoryInterface):
             session.delete(project)
             session.commit()
         return True
+
+
+    def get_all_projects(self):
+        return self.get_all()
+
+    def get_project_by_id(self, project_id: int):
+        return self.get_by_id(project_id)
+
+    def create_project(self, project_data: dict):
+        project = Project(**project_data)
+        return self.create_project(project)
+
+    def update_project(self, project_id: int, updates: dict):
+        return self.update_project(project_id, updates)
+
+    def delete_project(self, project_id: int):
+        return self.delete_project(project_id)

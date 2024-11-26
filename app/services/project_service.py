@@ -1,8 +1,9 @@
 from app.repositories.project_repository import ProjectRepository
+from app.repositories.interfaces.project_repository_interface import ProjectRepositoryInterface
 from app.models.project import Project
 
 class ProjectService:
-    def __init__(self, project_repository: ProjectRepository):
+    def __init__(self, project_repository: ProjectRepositoryInterface):
         self.project_repository = project_repository
 
     def get_project(self, project_id: str):
@@ -26,3 +27,7 @@ class ProjectService:
         if not success:
             raise ValueError(f"Project with ID {project_id} not found")
         return success
+    
+
+    def get_all_projects(self):
+        return self.project_repository.get_all_projects()

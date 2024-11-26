@@ -29,9 +29,12 @@ class AuthService(AuthServiceInterface):
             email=user_data.email,
             hashed_password=hashed_password,
         )
-                
+
+        self.user_repository.create_user(new_user)
+
+        token = self.token_service.create_token({"sub": str(new_user.id)})                
         
-        return self.user_repository.create_user(new_user)
+        return token
 
     def authenticate_user(self, user: UserLoginSchema) -> str:
         user_response = self.user_repository.get_by_email(user.email)
