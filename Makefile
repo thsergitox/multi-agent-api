@@ -3,4 +3,4 @@ run:
 
 install:
 	python -m venv venv --clear
-	. venv/bin/activate && pip install -r requirements.txt --no-deps --ignore-installed
+	. venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt
