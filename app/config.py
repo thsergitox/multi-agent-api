@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     DATABASE_URL: str
     SALT_ROUNDS: int
     JWT_SECRET_KEY: str
+    OPENAI_API_KEY: str
 
     class Config:
         env_file = ".env"
