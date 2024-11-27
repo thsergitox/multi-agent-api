@@ -1,5 +1,5 @@
 run:
-	fastapi dev app/main.py
+	. venv/bin/activate && uvicorn app.main:app --reload
 
 install:
 	python -m venv venv --clear
