@@ -10,6 +10,7 @@ class ProjectSchema(BaseModel):
     is_public: bool
     created_at: datetime
     updated_at: datetime
+    papers: List[dict]
 
     class Config:
         from_attributes = True
