@@ -28,7 +28,7 @@ async def chat(
 @router.get("/create-latex")
 async def create_latex():
 
-    latex = """
+    latex = r"""
 \documentclass[12pt]{article}
 \usepackage{graphicx}
 \usepackage{amsmath}
@@ -136,6 +136,6 @@ This survey highlights the current state-of-the-art in NLP, covering advancement
 \printbibliography
 
 \end{document}
-    """
+"""
 
     return {"latest": latex}
