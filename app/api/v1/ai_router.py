@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
-@router.post("/ai/chatbot", response_model=ChatResponse)
+@router.post("/chatbot", response_model=ChatResponse)
 async def chat(
     request: ChatRequest,
     chatbot_service: ChatbotService = Depends(lambda: Container.chatbot_service()),

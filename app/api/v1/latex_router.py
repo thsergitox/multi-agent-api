@@ -12,7 +12,7 @@ def get_latex_service():
     return LaTeXService()
 
 
-@router.post("/ai/latex/paper-review")
+@router.post("/paper-review")
 async def generate_paper_review(
     papers: List[Paper],
     paper_name: str,
@@ -22,7 +22,7 @@ async def generate_paper_review(
     return await latex_service.generate_paper_review(papers, paper_name)
 
 
-@router.post("/ai/latex/render")
+@router.post("/render")
 async def render_latex(
     request: LatexDocSchema,
     latex_service: LaTeXService = Depends(get_latex_service),
