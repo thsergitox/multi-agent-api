@@ -11,3 +11,5 @@ passlib
 httpx
 psycopg2-binary
 openai
+langchain
+langchain-community
