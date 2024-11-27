@@ -4,20 +4,25 @@ from uuid import UUID
 from datetime import datetime
 
 class ProjectSchema(BaseModel):
-    id: UUID  # ID del proyecto como UUID
-    title: str  # Título del proyecto
-    description: Optional[str] = None  # Descripción, puede estar vacío
-    is_public: bool  # Si el proyecto es público o privado
-    created_at: datetime  # Fecha de creación
-    updated_at: datetime  # Fecha de última actualización
+    id: UUID
+    title: str
+    description: Optional[str] = None
+    is_public: bool
+    created_at: datetime
+    updated_at: datetime
 
     class Config:
         from_attributes = True
 
 class PaperSchema(BaseModel):
     title: str
+    abstract: str
     authors: List[str]
-    year: int
+    categories: str
+    entry_id: str
+    pdf_url: str
+    published: str
+    updated: str
 
 class ProjectCreateSchema(BaseModel):
     access_token: str
@@ -35,9 +40,14 @@ class ProjectCreateSchema(BaseModel):
                 "is_public": True,
                 "papers": [
                     {
-                        "title": "Paper 1",
-                        "authors": ["Author 1", "Author 2"],
-                        "year": 2023
+                        "title": "Quantum Cryptography for Enhanced Network Security: A Comprehensive Survey",
+                        "abstract": "With the ever-growing concern for internet security, the field of quantum cryptography emerges as a promising solution...",
+                        "authors": ["Mst Shapna Akter"],
+                        "categories": "cs.CR",
+                        "entry_id": "http://arxiv.org/abs/2306.09248v1",
+                        "pdf_url": "http://arxiv.org/pdf/2306.09248v1",
+                        "published": "2023-06-02",
+                        "updated": "2023-06-02"
                     }
                 ]
             }
