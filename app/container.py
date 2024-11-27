@@ -9,10 +9,12 @@ from app.services.jwt_service import TokenServiceJWT
 from app.services.user_service import UserService
 from app.services.project_service import ProjectService
 from app.services.chat_service import ChatService
+from app.services.chatbot_service import ChatbotService
 from app.config import settings
 
 DATABASE_URL = settings.DATABASE_URL
 JWT_SECRET_KEY = settings.JWT_SECRET_KEY
+
 
 class Container(containers.DeclarativeContainer):
 
@@ -42,10 +44,7 @@ class Container(containers.DeclarativeContainer):
     )
 
     # Services
-    jwt_service = providers.Factory(
-        TokenServiceJWT,
-        secret_key=JWT_SECRET_KEY       
-    )
+    jwt_service = providers.Factory(TokenServiceJWT, secret_key=JWT_SECRET_KEY)
     auth_service = providers.Factory(
         AuthService,
         user_repository=user_repository,
@@ -65,3 +64,4 @@ class Container(containers.DeclarativeContainer):
         chat_repository=chat_repository,
         token_service=jwt_service,
     )
+    chatbot_service = providers.Singleton(ChatbotService)
