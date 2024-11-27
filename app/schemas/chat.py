@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import Optional
 from uuid import UUID
 
+
 class ChatMessageSchema(BaseModel):
     id: Optional[UUID]  # ID del mensaje, opcional para respuestas
     user_id: UUID  # Usuario que envió el mensaje
@@ -11,11 +12,23 @@ class ChatMessageSchema(BaseModel):
     class Config:
         from_attributes = True
 
+
 class ChatMessageCreateSchema(BaseModel):
     user_id: UUID
     project_id: UUID
     content: str
 
+
 class ChatRequestSchema(BaseModel):
     access_token: str
     project_id: UUID
+
+
+class ChatRequest(BaseModel):
+    message: str
+    sessionId: Optional[str] = None
+
+
+class ChatResponse(BaseModel):
+    response: str
+    sessionId: str
