@@ -25,6 +25,9 @@ class PaperSchema(BaseModel):
     published: str
     updated: str
 
+class LatexSchema(BaseModel):
+    papers: List[PaperSchema]
+
 class ProjectCreateSchema(BaseModel):
     access_token: str
     title: str
